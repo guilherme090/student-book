@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+:root {
+    --font-family: 'Bebas Neue';
+    --bg-color: #1B262C;
+    --primary-color: #FDCB9E;
+    --secondary-color: #00B7C2;
+    --terciary-color: #0F4C75;
+}
+
+body {
+    color: var(--primary-color);
+    background-color: var(--bg-color);
+}
+
+#main-title {
+    text-align: center;
+}
+
+.data-table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid white;
+}
+
+.data-table > thead {
+    border: 1px solid white;
+    color: var(--secondary-color);
+}
