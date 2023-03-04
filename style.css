@@ -6,6 +6,7 @@
     --primary-color: #FDCB9E;
     --secondary-color: #00B7C2;
     --terciary-color: #0F4C75;
+    --alert-color: #BB0000;
 }
 
 body {
@@ -33,6 +34,10 @@ button:hover {
 .inactive {
     color: black;
     background-color: lightgrey;
+}
+
+.alert {
+    background-color: var(--alert-color);
 }
 
 .inactive:hover{
