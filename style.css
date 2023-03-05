@@ -47,7 +47,7 @@ button:hover {
 .data-table {
     border-collapse: collapse;
     text-align: center;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 th, td {

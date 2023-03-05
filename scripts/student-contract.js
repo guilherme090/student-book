@@ -1,4 +1,4 @@
-function getStudentsContracts () {
+function getStudentsContracts() {
     fetch('https://student-book.glitch.me/students/contracts')
       .then(response => response.json())
       .then(data => {
@@ -30,13 +30,15 @@ function generateStudentsContractTable(data) {
     if(columnStatus.text() != "active") {
       registerClassBtn.addClass("inactive");
     }
-    let registerClassTd = $("<td>");
-    row.append(registerClassTd.append(registerClassBtn));
-
+    
     // instantiate button to see/change student data
     let seeStudentBtn = $("<button>").text("See student");
-    let seeStudentTd = $("<td>");
-    row.append(seeStudentTd.append(seeStudentBtn));
+    
+    // instantiate button to see/change contract data
+    let seeContractBtn = $("<button>").text("See contract");
+    
+    let actionsTd = $("<td>");
+    row.append(actionsTd.append(registerClassBtn).append(seeStudentBtn).append(seeContractBtn));
 
     // check if active contract is expiring or expired
     if(columnStatus.text() === "active"){
@@ -50,8 +52,7 @@ function generateStudentsContractTable(data) {
         columnEndDate.addClass("alert");
         columnTime.addClass("alert");
         columnStatus.addClass("alert");
-        registerClassTd.addClass("alert");
-        seeStudentTd.addClass("alert");
+        actionsTd.addClass("alert");
       }
       else if(endDate < criticalDate) {
         columnEndDate.addClass("alert");
@@ -64,4 +65,3 @@ function generateStudentsContractTable(data) {
 }
 
 getStudentsContracts();
-//generateStudentContractTable({studentsContracts:[]});
