@@ -64,4 +64,28 @@ function generateStudentsContractTable(data) {
   }    
 }
 
+/*
+--- Show information about specific student
+*/
+
+function showSpecificStudent(id) {
+  fetch(`https://student-book.glitch.me/student/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        fillSpecificStudentForm(data);
+      })
+      .catch(error => console.error(error));
+}
+
+function fillSpecificStudentForm(data) {
+  $("#student-name-input").val(data.student.name);
+  $("#student-company-input").val(data.student.company);
+  $("#student-level-input").val(data.student.level);
+  $("#student-birthdate-input").val(data.student.birth_date);
+  $("#student-email-input").val(data.student.email);
+  $("#student-date-joined-input").val(data.student.date_joined);
+}
+
 getStudentsContracts();
+showSpecificStudent(1);
