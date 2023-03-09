@@ -4,6 +4,8 @@ function getStudentsContracts() {
       .then(data => {
         console.log(data);
         generateStudentsContractTable(data);
+        $(".student-info").hide();
+        $(".data-table").show();
       })
       .catch(error => console.error(error));
 }
@@ -85,6 +87,9 @@ function fillSpecificStudentForm(data) {
   $("#student-birthdate-input").val(data.student.birth_date);
   $("#student-email-input").val(data.student.email);
   $("#student-date-joined-input").val(data.student.date_joined);
+
+  $(".student-info").show();
+  $(".data-table").hide();
 }
 
 getStudentsContracts();
