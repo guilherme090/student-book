@@ -4,8 +4,7 @@ function getStudentsContracts() {
       .then(data => {
         console.log(data);
         generateStudentsContractTable(data);
-        $(".student-info").hide();
-        $(".data-table").show();
+        showOnlyStudentTables();
       })
       .catch(error => console.error(error));
 }
@@ -35,6 +34,9 @@ function generateStudentsContractTable(data) {
     
     // instantiate button to see/change student data
     let seeStudentBtn = $("<button>").text("See student");
+
+    let studentId = data.studentsContracts[i].student;
+    seeStudentBtn.on("click", function() {showSpecificStudent(studentId)});
     
     // instantiate button to see/change contract data
     let seeContractBtn = $("<button>").text("See contract");
@@ -88,9 +90,18 @@ function fillSpecificStudentForm(data) {
   $("#student-email-input").val(data.student.email);
   $("#student-date-joined-input").val(data.student.date_joined);
 
+  showOnlyStudentInfo();
+}
+
+function showOnlyStudentTables() {
+  $(".student-info").hide();
+  $(".data-table").show();
+}
+
+function showOnlyStudentInfo() {
   $(".student-info").show();
   $(".data-table").hide();
 }
 
 getStudentsContracts();
-showSpecificStudent(1);
+// showSpecificStudent(1);
