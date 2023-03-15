@@ -16,8 +16,19 @@ function generateStudentsContractTable(data) {
     let row = $("<tr>");
     let columnStudent = $("<td>").text(data.studentsContracts[i].name);
     let columnCompany = $("<td>").text(data.studentsContracts[i].company);
-    let columnStartDate = $("<td>").text(data.studentsContracts[i].start_date);
-    let columnEndDate = $("<td>").text(data.studentsContracts[i].end_date);
+    
+    let startDate = null;
+    if(data.studentsContracts[i].start_date){
+      startDate = new Date(data.studentsContracts[i].start_date).toLocaleDateString();
+    }
+    let columnStartDate = $("<td>").text(startDate);
+
+    let endDate = null;
+    if(data.studentsContracts[i].end_date){
+      endDate = new Date(data.studentsContracts[i].end_date).toLocaleDateString();
+    }
+    let columnEndDate = $("<td>").text(endDate);
+    
     let columnTime = $("<td>").text(data.studentsContracts[i].hours_bought - data.studentsContracts[i].hours_used);
     let columnStatus = $("<td>").text(data.studentsContracts[i].is_active? "active":"inactive");
 
@@ -122,9 +133,21 @@ function showSpecificContract(id) {
       .then(data => {
         selectedContract.id = data.specificContract.id;
         selectedContract.student = data.specificContract.student;
-        selectedContract.startDate = data.specificContract.start_date;
-        selectedContract.endDate = data.specificContract.end_date;
-        selectedContract.terminationDate = data.specificContract.termination_date;
+        if(data.specificContract.start_date != null){
+          selectedContract.startDate = data.specificContract.start_date.substring(0,10);
+        } else {
+          selectedContract.startDate = null;
+        }
+        if(data.specificContract.end_date != null){
+          selectedContract.endDate = data.specificContract.end_date.substring(0,10);
+        } else {
+          selectedContract.endDate = null;
+        }
+        if(data.specificContract.termination_date != null){
+          selectedContract.terminationDate = data.specificContract.termination_date.substring(0,10);
+        } else {
+          selectedContract.terminationDate = null;
+        }
         selectedContract.hoursBought = data.specificContract.hours_bought;
         selectedContract.hoursUsed = data.specificContract.hours_used;
         selectedContract.isActive = data.specificContract.is_active;
@@ -212,11 +235,9 @@ function editContract() {
   // update selected contract to current form values
   
   selectedContract.student = $("#student-input").val();
-  // selectedContract.startDate = $("#start-date-input").val();
-  selectedContract.startDate = "2000-02-07";
-  // selectedContract.endDate = $("#end-date-input").val();
-  selectedContract.endDate = "2000-02-08";
-  // selectedContract.terminationDate = $("#termination-date-input").val();
+  selectedContract.startDate = $("#start-date-input").val();
+  selectedContract.endDate = $("#end-date-input").val();
+  selectedContract.terminationDate = $("#termination-date-input").val();
   selectedContract.hoursBought = $("#hours-bought-input").val();
   selectedContract.hoursUsed = $("#hours-used-input").val();
 
