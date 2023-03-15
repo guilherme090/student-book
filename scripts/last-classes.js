@@ -1,5 +1,5 @@
 function getLastClasses() {
-    fetch('https://student-book.glitch.me/classes')
+    fetch(`${API_ROOT}/classes`)
         .then(response => response.json())
         .then(data => {
           console.log(data);

@@ -84,13 +84,61 @@
 
                 <button class="data-input" id="student-return-btn"> Return</button>
             </span>
+        </div>
+
+        <!-- specific contract information -->
+        <div class="contract-info">
+            <label class="form-title">Contract Information</label>
+            <span class="form-input">
+                <label for="student-input" class="input-label">Student</label>
+                <input type="text" class="data-input" id="student-input"/>
+            </span>
+            
+            <span class="form-input">
+                <label for="start-date-input" class="input-label">Start Date</label>
+                <input type="date" class="data-input" id="start-date-input"/>
+            </span>
+
+            <span class="form-input">
+                <label for="end-date-input" class="input-label">End Date</label>
+                <input type="date" class="data-input" id="end-date-input"/>
+            </span>
+
+            <span class="form-input">
+                <label for="termination-date-input" class="input-label">Termination Date</label>
+                <input type="date" class="data-input" id="termination-date-input"/>
+            </span>
+
+            <span class="form-input">
+                <label for="hours-bought-input" class="input-label">Hours Bought</label>
+                <input type="number" min="0" class="data-input number-input" id="hours-bought-input"/>
+            </span>
+
+            <span class="form-input">
+                <label for="hours-used-input" class="input-label">Hours Used</label>
+                <input type="number" min="0" class="data-input number-input" id="hours-used-input"/>
+            </span>
+
+            <span class="form-input">
+                <label for="is-active-input" class="input-label">Active</label>
+                <input type="checkbox" class="data-input checkbox-input" id="is-active-input"/>
+            </span>
+
+            <span class="form-input">
+                <button class="data-input" id="contract-save-btn"> Save</button>
+
+                <button class="data-input" id="contract-return-btn"> Return</button>
+            </span>
 
         </div>
+
     </div>
 
-    <script src="/scripts/jquery.js"></script>
-    <script src="/scripts/student-contract.js"></script>
-    <script src="/scripts/last-classes.js"></script>
-    <script src="/scripts/student-information.js"></script>
+    <script src="./scripts/jquery.js"></script>
+    <script src="./api-keys.js"></script>
+    <script src="./scripts/student-contract.js"></script>
+    <script src="./scripts/last-classes.js"></script>
+    <script src="./scripts/student-information.js"></script>
+    <script src="./scripts/contract-information.js"></script>
 </body>
 </html>

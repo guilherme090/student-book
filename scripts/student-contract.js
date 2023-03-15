@@ -1,5 +1,8 @@
+let selectedStudent = {};
+let selectedContract = {};
+
 function getStudentsContracts() {
-    fetch('https://student-book.glitch.me/students/contracts')
+    fetch(`${API_ROOT}/students/contracts`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -40,6 +43,9 @@ function generateStudentsContractTable(data) {
     
     // instantiate button to see/change contract data
     let seeContractBtn = $("<button>").text("See contract");
+
+    let contractId = data.studentsContracts[i].id;
+    seeContractBtn.on("click", function() {showSpecificContract(contractId)});
     
     let actionsTd = $("<td>");
     row.append(actionsTd.append(registerClassBtn).append(seeStudentBtn).append(seeContractBtn));
@@ -73,10 +79,17 @@ function generateStudentsContractTable(data) {
 */
 
 function showSpecificStudent(id) {
-  fetch(`https://student-book.glitch.me/student/${id}`)
+  fetch(`${API_ROOT}/student/${id}`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        selectedStudent.id = data.student.id;
+        selectedStudent.name = data.student.name;
+        selectedStudent.company = data.student.company;
+        selectedStudent.level = data.student.level;
+        selectedStudent.birth_date = data.student.birth_date;
+        selectedStudent.date_joined = data.student.date_joined;
+        selectedStudent.email = data.student.email;
         fillSpecificStudentForm(data);
       })
       .catch(error => console.error(error));
@@ -93,15 +106,153 @@ function fillSpecificStudentForm(data) {
   showOnlyStudentInfo();
 }
 
+/*
+--- Show information about specific contract
+*/
+
+function showSpecificContract(id) {
+  fetch(`${API_ROOT}/contract/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        selectedContract.id = data.specificContract.id;
+        selectedContract.student = data.specificContract.student;
+        selectedContract.startDate = data.specificContract.start_date;
+        selectedContract.endDate = data.specificContract.end_date;
+        selectedContract.terminationDate = data.specificContract.termination_date;
+        selectedContract.hoursBought = data.specificContract.hours_bought;
+        selectedContract.hoursUsed = data.specificContract.hours_used;
+        selectedContract.isActive = data.specificContract.is_active;
+        
+        fillSpecificContractForm(data);
+      })
+      .catch(error => console.error(error));
+}
+
+function fillSpecificContractForm(data) {
+  $("#student-input").val(selectedContract.student);
+  $("#start-date-input").val(selectedContract.startDate);
+  $("#end-date-input").val(selectedContract.endDate);
+  $("#termination-date-input").val(selectedContract.terminationDate);
+  $("#hours-bought-input").val(selectedContract.hoursBought);
+  $("#hours-used-input").val(selectedContract.hoursUsed);
+  if(selectedContract.isActive){
+    $("#is-active-input").prop("checked", true);
+  } else {
+    $("#is-active-input").prop("checked", false);
+  }
+ 
+  showOnlyContractInfo();
+}
+
+
 function showOnlyStudentTables() {
+  $(".contract-info").hide();
   $(".student-info").hide();
   $(".data-table").show();
 }
 
 function showOnlyStudentInfo() {
+  $(".contract-info").hide();
   $(".student-info").show();
   $(".data-table").hide();
 }
 
-getStudentsContracts();
-// showSpecificStudent(1);
+function showOnlyContractInfo() {
+  $(".contract-info").show();
+  $(".student-info").hide();
+  $(".data-table").hide();
+}
+
+function eraseContractsTable() {
+  $("#student-contract-table tr:not(:first)").remove();
+}
+
+function editStudent() {
+  console.log(selectedStudent);
+
+  // update selected student to current form values
+
+  selectedStudent.name = $("#student-name-input").val();
+  selectedStudent.company = $("#student-company-input").val();
+  selectedStudent.level = $("#student-level-input").val();
+  //selectedStudent.birth_date = $("#student-birthdate-input").val();
+  selectedStudent.birth_date = null;
+  selectedStudent.date_joined = null;
+  //selectedStudent.date_joined = $("#student-date-joined-input").val();
+  selectedStudent.email = $("#student-email-input").val();
+
+  console.log(selectedStudent);
+
+  fetch(`${API_ROOT}/student/${selectedStudent.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      //'Accept': '*/*',
+      'ADMIN_KEY': ADMIN_KEY
+    },
+    body: JSON.stringify(selectedStudent)
+  })
+    .then(response => {
+      console.log("Response Status:", response.status);
+      return response.json()
+    })
+    .then(data => {
+      console.log("Data received:", data);
+      eraseContractsTable();
+      getStudentsContracts();
+    })
+    .catch(error => console.error(error));
+}
+
+function editContract() {
+  console.log(selectedContract);
+
+  // update selected contract to current form values
+  
+  selectedContract.student = $("#student-input").val();
+  // selectedContract.startDate = $("#start-date-input").val();
+  selectedContract.startDate = "2000-02-07";
+  // selectedContract.endDate = $("#end-date-input").val();
+  selectedContract.endDate = "2000-02-08";
+  // selectedContract.terminationDate = $("#termination-date-input").val();
+  selectedContract.hoursBought = $("#hours-bought-input").val();
+  selectedContract.hoursUsed = $("#hours-used-input").val();
+
+  if($("#is-active-input").prop("checked")){
+    console.log("Tava checado")
+    selectedContract.isActive = '1';
+  } else {
+    console.log("Nao tava checado")
+    selectedContract.isActive = '0';
+  }
+
+  console.log(selectedContract);
+
+  fetch(`${API_ROOT}/contract/${selectedContract.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      //'Accept': '*/*',
+      'ADMIN_KEY': ADMIN_KEY
+    },
+    body: JSON.stringify(selectedContract)
+  })
+    .then(response => {
+      console.log("Response Status:", response.status);
+      return response.json()
+    })
+    .then(data => {
+      console.log("Data received:", data);
+      eraseContractsTable();
+      getStudentsContracts();
+    })
+    .catch(error => console.error(error));
+}
+
+
+
+
+
+
+getStudentsContracts(); 
