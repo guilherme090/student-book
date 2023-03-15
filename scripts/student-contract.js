@@ -5,7 +5,6 @@ function getStudentsContracts() {
     fetch(`${API_ROOT}/students/contracts`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         generateStudentsContractTable(data);
         showOnlyStudentTables();
       })
@@ -82,26 +81,33 @@ function showSpecificStudent(id) {
   fetch(`${API_ROOT}/student/${id}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         selectedStudent.id = data.student.id;
         selectedStudent.name = data.student.name;
         selectedStudent.company = data.student.company;
         selectedStudent.level = data.student.level;
-        selectedStudent.birth_date = data.student.birth_date;
-        selectedStudent.date_joined = data.student.date_joined;
+        if(data.student.birth_date != null){
+          selectedStudent.birthDate = data.student.birth_date.substring(0,10);
+        } else {
+          selectedStudent.birthDate = null;
+        }
+        if(data.student.date_joined != null){
+          selectedStudent.dateJoined = data.student.date_joined.substring(0,10);
+        } else {
+          selectedStudent.dateJoined = null;
+        }
         selectedStudent.email = data.student.email;
-        fillSpecificStudentForm(data);
+        fillSpecificStudentForm(selectedStudent);
       })
       .catch(error => console.error(error));
 }
 
-function fillSpecificStudentForm(data) {
-  $("#student-name-input").val(data.student.name);
-  $("#student-company-input").val(data.student.company);
-  $("#student-level-input").val(data.student.level);
-  $("#student-birthdate-input").val(data.student.birth_date);
-  $("#student-email-input").val(data.student.email);
-  $("#student-date-joined-input").val(data.student.date_joined);
+function fillSpecificStudentForm(selectedStudent) {
+  $("#student-name-input").val(selectedStudent.name);
+  $("#student-company-input").val(selectedStudent.company);
+  $("#student-level-input").val(selectedStudent.level);
+  $("#student-birthdate-input").val(selectedStudent.birthDate);
+  $("#student-email-input").val(selectedStudent.email);
+  $("#student-date-joined-input").val(selectedStudent.dateJoined);
 
   showOnlyStudentInfo();
 }
@@ -114,7 +120,6 @@ function showSpecificContract(id) {
   fetch(`${API_ROOT}/contract/${id}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         selectedContract.id = data.specificContract.id;
         selectedContract.student = data.specificContract.student;
         selectedContract.startDate = data.specificContract.start_date;
@@ -169,20 +174,17 @@ function eraseContractsTable() {
 }
 
 function editStudent() {
-  console.log(selectedStudent);
 
   // update selected student to current form values
 
   selectedStudent.name = $("#student-name-input").val();
   selectedStudent.company = $("#student-company-input").val();
   selectedStudent.level = $("#student-level-input").val();
-  //selectedStudent.birth_date = $("#student-birthdate-input").val();
-  selectedStudent.birth_date = null;
-  selectedStudent.date_joined = null;
-  //selectedStudent.date_joined = $("#student-date-joined-input").val();
+  selectedStudent.birthDate = $("#student-birthdate-input").val();
+  selectedStudent.dateJoined = $("#student-date-joined-input").val();
   selectedStudent.email = $("#student-email-input").val();
 
-  console.log(selectedStudent);
+  console.log("Estudante selecionado: ", selectedStudent)
 
   fetch(`${API_ROOT}/student/${selectedStudent.id}`, {
     method: 'PUT',
@@ -206,7 +208,6 @@ function editStudent() {
 }
 
 function editContract() {
-  console.log(selectedContract);
 
   // update selected contract to current form values
   
@@ -220,10 +221,8 @@ function editContract() {
   selectedContract.hoursUsed = $("#hours-used-input").val();
 
   if($("#is-active-input").prop("checked")){
-    console.log("Tava checado")
     selectedContract.isActive = '1';
   } else {
-    console.log("Nao tava checado")
     selectedContract.isActive = '0';
   }
 
