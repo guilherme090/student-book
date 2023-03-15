@@ -165,7 +165,7 @@ function showOnlyContractInfo() {
 }
 
 function eraseContractsTable() {
-  $("#student-contract-table tr:not(:first)").remove();
+  $("#student-contract-table > tbody").children().remove();
 }
 
 function editStudent() {
