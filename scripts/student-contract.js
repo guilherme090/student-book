@@ -1,5 +1,6 @@
 let selectedStudent = {};
 let selectedContract = {};
+let selectedClass = {};
 
 function getStudentsContracts() {
     fetch(`${API_ROOT}/students/contracts`)
@@ -43,7 +44,9 @@ function generateStudentsContractTable(data) {
     let registerClassBtn = $("<button>").text("Register class");
     if(columnStatus.text() != "active") {
       registerClassBtn.addClass("inactive");
+      registerClassBtn.prop("disabled", true);
     }
+    registerClassBtn.on("click", function(){showNewClassForm(studentId)});
     
     // instantiate button to see/change student data
     let seeStudentBtn = $("<button>").text("See student");
@@ -53,6 +56,10 @@ function generateStudentsContractTable(data) {
     
     // instantiate button to see/change contract data
     let seeContractBtn = $("<button>").text("See contract");
+    if(startDate === null){
+      seeContractBtn.addClass("inactive");
+      seeContractBtn.prop("disabled", true);
+    }
 
     let contractId = data.studentsContracts[i].id;
     seeContractBtn.on("click", function() {showSpecificContract(contractId)});
@@ -83,6 +90,20 @@ function generateStudentsContractTable(data) {
     $("#student-contract-table").find("tbody").append(row);
   }    
 }
+
+/*
+--- Show form to add class
+*/
+
+function showNewClassForm(student) { 
+  // set default values when adding a new class
+  $("#date-taught-input").val(new Date().toISOString().slice(0,10));
+  $("#student-1-input").val(student);
+  $("#class-time-input").val("1");
+
+  showOnlyClassInfo();
+}
+
 
 /*
 --- Show information about specific student
@@ -173,27 +194,79 @@ function fillSpecificContractForm(data) {
   showOnlyContractInfo();
 }
 
+/*
+--- Visibility changer for tables
+*/
 
 function showOnlyStudentTables() {
   $(".contract-info").hide();
   $(".student-info").hide();
   $(".data-table").show();
+  $(".class-info").hide();
 }
 
 function showOnlyStudentInfo() {
   $(".contract-info").hide();
   $(".student-info").show();
   $(".data-table").hide();
+  $(".class-info").hide();
 }
 
 function showOnlyContractInfo() {
   $(".contract-info").show();
   $(".student-info").hide();
   $(".data-table").hide();
+  $(".class-info").hide();
+}
+
+function showOnlyClassInfo() {
+  $(".contract-info").hide();
+  $(".student-info").hide();
+  $(".data-table").hide();
+  $(".class-info").show();
 }
 
 function eraseContractsTable() {
   $("#student-contract-table > tbody").children().remove();
+}
+
+function eraseClassesTable() {
+  $("#last-classes-table > tbody").children().remove();
+}
+
+/*
+--- Register new class to the student's contract
+*/
+
+function registerNewClass() {
+  selectedClass.dateTaught = $("#date-taught-input").val();
+  selectedClass.classTime = $("#class-time-input").val();
+  selectedClass.notes = $("#notes-input").val();
+  selectedClass.student1 = $("#student-1-input").val();
+  selectedClass.student2 = $("#student-2-input").val()?$("#student-2-input").val():null;
+  selectedClass.student3 = $("#student-3-input").val()?$("#student-3-input").val():null;
+  selectedClass.student4 = $("#student-4-input").val()?$("#student-4-input").val():null;
+
+  fetch(`${API_ROOT}/class`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      //'Accept': '*/*',
+      'ADMIN_KEY': ADMIN_KEY
+    },
+    body: JSON.stringify(selectedClass)
+  })
+    .then(response => {
+      console.log("Response Status:", response.status);
+      return response.json()
+    })
+    .then(data => {
+      console.log("Data received:", data);
+      eraseClassesTable();
+      getLastClasses();
+      showOnlyStudentTables();
+    })
+    .catch(error => console.error(error));
 }
 
 function editStudent() {
