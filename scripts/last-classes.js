@@ -11,7 +11,8 @@ function getLastClasses() {
 function generateLastClassesTable(data) {
     for(let i = 0; i<data.classes.length; i++) {
       let row = $("<tr>");
-      let columnDate = $("<td>").text(data.classes[i].date_taught);
+      let dateTaught = new Date(data.classes[i].date_taught).toLocaleString().slice(0,10);
+      let columnDate = $("<td>").text(dateTaught.replace(/,/g,''));
       let columnClassTime = $("<td>").text(data.classes[i].class_time);
       let columnStudent1 = $("<td>").text(data.classes[i].student_1);
       let columnStudent2 = $("<td>").text(data.classes[i].student_2);
