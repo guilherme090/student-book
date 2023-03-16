@@ -16,7 +16,16 @@ body {
 }
 
 #main-title {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main-title #page-icon {
+    margin-right: 10px;
+}
+
+#main-title-text {
     font-family: var(--font-family);
 }
 
