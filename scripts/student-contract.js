@@ -2,14 +2,20 @@ let selectedStudent = {};
 let selectedContract = {};
 let selectedClass = {};
 
+$(()=>{
+  getStudentsContracts(); 
+});
+
 function getStudentsContracts() {
-    fetch(`${API_ROOT}/students/contracts`)
-      .then(response => response.json())
-      .then(data => {
-        generateStudentsContractTable(data);
-        showOnlyStudentTables();
-      })
-      .catch(error => console.error(error));
+  addHourglassToTable("student-contract-table");
+  fetch(`${API_ROOT}/students/contracts`)
+    .then(response => response.json())
+    .then(data => {
+      destroyHourglass("student-contract-table");
+      generateStudentsContractTable(data);
+      showOnlyStudentTables();
+    })
+    .catch(error => console.error(error));
 }
 
 function generateStudentsContractTable(data) {
@@ -272,7 +278,6 @@ function registerNewClass() {
 function editStudent() {
 
   // update selected student to current form values
-
   selectedStudent.name = $("#student-name-input").val();
   selectedStudent.company = $("#student-company-input").val();
   selectedStudent.level = $("#student-level-input").val();
@@ -345,7 +350,3 @@ function editContract() {
 
 
 
-
-
-
-getStudentsContracts(); 

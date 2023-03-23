@@ -94,3 +94,12 @@ th, td {
     vertical-align: top;
     word-wrap: break-word;
 }
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    margin: 0 auto;
+    display: block;
+}
