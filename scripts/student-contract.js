@@ -53,7 +53,7 @@ function generateStudentsContractTable(data) {
       registerClassBtn.addClass("inactive");
       registerClassBtn.prop("disabled", true);
     }
-    registerClassBtn.on("click", function(){showNewClassForm(studentId)});
+    registerClassBtn.on("click", function(){showNewClassForm(studentId, contractId)});
     
     // instantiate button to see/change student data
     let seeStudentBtn = $("<button>").text("See student");
@@ -101,14 +101,14 @@ function generateStudentsContractTable(data) {
 /*
 --- Show form to add class
 */
-
-function showNewClassForm(student) { 
+function showNewClassForm(student, contract) { 
   // set default values when adding a new class
+
   $("#date-taught-input").val(new Date().toISOString().slice(0,10));
-  $("#student-1-input").val(student);
+  $("#student-id-input").val(student);
   $("#class-time-input").val("1");
 
-  showOnlyClassInfo();
+  showOnlyClassInfo(contract);
 }
 
 
@@ -226,11 +226,12 @@ function showOnlyContractInfo() {
   $(".class-info").hide();
 }
 
-function showOnlyClassInfo() {
+function showOnlyClassInfo(contract) {
   $(".contract-info").hide();
   $(".student-info").hide();
   $(".data-table").hide();
   $(".class-info").show();
+  selectedContract.id = contract;
 }
 
 function eraseContractsTable() {
@@ -249,10 +250,8 @@ function registerNewClass() {
   selectedClass.dateTaught = $("#date-taught-input").val();
   selectedClass.classTime = $("#class-time-input").val();
   selectedClass.notes = $("#notes-input").val();
-  selectedClass.student1 = $("#student-1-input").val();
-  selectedClass.student2 = $("#student-2-input").val()?$("#student-2-input").val():null;
-  selectedClass.student3 = $("#student-3-input").val()?$("#student-3-input").val():null;
-  selectedClass.student4 = $("#student-4-input").val()?$("#student-4-input").val():null;
+  selectedClass.student = $("#student-id-input").val();
+  console.log("selected class: ", selectedClass);
 
   fetch(`${API_ROOT}/class`, {
     method: 'POST',
@@ -264,16 +263,16 @@ function registerNewClass() {
     body: JSON.stringify(selectedClass)
   })
     .then(response => {
-      console.log("Response Status:", response.status);
       return response.json()
     })
     .then(data => {
-      console.log("Data received:", data);
+      console.log("New class data: ", data);
       eraseClassesTable();
       getLastClasses();
       showOnlyStudentTables();
     })
     .catch(error => console.error(error));
+    return selectedClass.classTime;
 }
 
 function editStudent() {
@@ -286,8 +285,6 @@ function editStudent() {
   selectedStudent.dateJoined = $("#student-date-joined-input").val();
   selectedStudent.email = $("#student-email-input").val();
 
-  console.log("Estudante selecionado: ", selectedStudent)
-
   fetch(`${API_ROOT}/student/${selectedStudent.id}`, {
     method: 'PUT',
     headers: {
@@ -298,11 +295,9 @@ function editStudent() {
     body: JSON.stringify(selectedStudent)
   })
     .then(response => {
-      console.log("Response Status:", response.status);
       return response.json()
     })
     .then(data => {
-      console.log("Data received:", data);
       eraseContractsTable();
       getStudentsContracts();
     })
@@ -312,11 +307,12 @@ function editStudent() {
 function editContract() {
 
   // update selected contract to current form values
-  
   selectedContract.student = $("#student-input").val();
   selectedContract.startDate = $("#start-date-input").val();
   selectedContract.endDate = $("#end-date-input").val();
-  selectedContract.terminationDate = $("#termination-date-input").val();
+  if($("#termination-date-input").val() != ''){
+    selectedContract.terminationDate = $("#termination-date-input").val();
+  }
   selectedContract.hoursBought = $("#hours-bought-input").val();
   selectedContract.hoursUsed = $("#hours-used-input").val();
 
@@ -325,8 +321,6 @@ function editContract() {
   } else {
     selectedContract.isActive = '0';
   }
-
-  console.log(selectedContract);
 
   fetch(`${API_ROOT}/contract/${selectedContract.id}`, {
     method: 'PUT',
@@ -338,11 +332,38 @@ function editContract() {
     body: JSON.stringify(selectedContract)
   })
     .then(response => {
-      console.log("Response Status:", response.status);
       return response.json()
     })
     .then(data => {
-      console.log("Data received:", data);
+      eraseContractsTable();
+      getStudentsContracts();
+    })
+    .catch(error => console.error(error));
+}
+
+// When adding new class, update contract hours
+
+function addToContractHours(classHours) {
+
+  // update selected contract to current form values
+  
+  selectedContract.student = $("#student-input").val();
+  selectedContract.hoursUsed = parseInt($("#hours-used-input").val()) + classHours;
+
+
+  fetch(`${API_ROOT}/contract/${selectedContract.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      //'Accept': '*/*',
+      'ADMIN_KEY': ADMIN_KEY
+    },
+    body: JSON.stringify(selectedContract)
+  })
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
       eraseContractsTable();
       getStudentsContracts();
     })
