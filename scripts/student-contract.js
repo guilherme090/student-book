@@ -344,30 +344,7 @@ function editContract() {
 // When adding new class, update contract hours
 
 function addToContractHours(classHours) {
-
-  // update selected contract to current form values
-  
-  selectedContract.student = $("#student-input").val();
-  selectedContract.hoursUsed = parseInt($("#hours-used-input").val()) + classHours;
-
-
-  fetch(`${API_ROOT}/contract/${selectedContract.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      //'Accept': '*/*',
-      'ADMIN_KEY': ADMIN_KEY
-    },
-    body: JSON.stringify(selectedContract)
-  })
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      eraseContractsTable();
-      getStudentsContracts();
-    })
-    .catch(error => console.error(error));
+  // todo
 }
 
 
