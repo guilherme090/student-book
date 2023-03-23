@@ -3,6 +3,7 @@ let selectedContract = {};
 let selectedClass = {};
 
 $(()=>{
+  showOnlyStudentTables();
   getStudentsContracts(); 
 });
 
