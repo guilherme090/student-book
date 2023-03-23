@@ -71,7 +71,8 @@ button:hover {
 .data-table {
     border-collapse: collapse;
     text-align: center;
-    margin: 20px auto;
+    margin: 30px auto;
+    width: 100%;
 }
 
 th, td {
@@ -96,7 +97,6 @@ th, td {
 }
 
 .hourglass {
-    display: block;
     margin-left: auto;
     margin-right: auto;
 }
