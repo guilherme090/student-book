@@ -95,11 +95,8 @@ th, td {
     word-wrap: break-word;
 }
 
-.invisible {
-    display: none;
-}
-
-.visible {
-    margin: 0 auto;
+.hourglass {
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

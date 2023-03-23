@@ -6,7 +6,7 @@ function addHourglassToTable(tableId) {
                         .attr("src", "pictures/hourglass.png")
                         .attr("width", "80px")
                         .attr("height", "80px")
-                        .attr("alt", "loading table...");
+                        .attr("alt", "loading...");
 
     hourglassTd.append(hourglassImg);
     hourglassRow.append(hourglassTd);
@@ -24,7 +24,7 @@ function addHourglassToPage() {
                         .attr("src", "pictures/hourglass.png")
                         .attr("width", "80px")
                         .attr("height", "80px")
-                        .attr("alt", "loading table...");
+                        .attr("alt", "loading...");
     $(`body`).append(hourglassImg);
 }
 
