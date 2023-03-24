@@ -1,18 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
 
 :root {
-    --font-family: 'Bebas Neue';
+    --font-title: 'Bebas Neue';
+    --font-item-title: 'Arizonia';
+    --font-body: 'Roboto Slab';
     --bg-color: #1B262C;
     --primary-color: #FDCB9E;
     --secondary-color: #00B7C2;
     --terciary-color: #0F4C75;
     --alert-color: #BB0000;
+    --table-color: rgba(6, 5, 48, 0.276);
 }
 
 body {
     color: var(--primary-color);
     background-color: var(--bg-color);
-    font-size: large;
+    font-family: var(--font-body);
+    font-size: medium;
 }
 
 #main-title {
@@ -26,7 +32,7 @@ body {
 }
 
 #main-title-text {
-    font-family: var(--font-family);
+    font-family: var(--font-title);
 }
 
 .input-label {
@@ -56,6 +62,9 @@ button:hover {
 }
 
 .form-title {
+    font-family: var(--font-item-title);
+    font-size: xx-large;
+    color: var(--primary-color);
     text-align: center;
     display: block;
 }
@@ -78,7 +87,14 @@ button:hover {
     text-align: center;
     margin: 30px auto;
     width: 100%;
+    background: var(--table-color);
+    /* backdrop-filter: blur(20px); */
 }
+
+/* th {
+    font-family: var(--font-item-title);
+    font-size: x-large;
+} */
 
 th, td {
     padding: 4px 6px;
@@ -87,6 +103,10 @@ th, td {
 
 .data-table > thead {
     border: 1px solid white;
+    color: var(--primary-color);
+}
+
+.data-table > tbody {
     color: var(--secondary-color);
 }
 
