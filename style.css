@@ -33,6 +33,11 @@ body {
     color: var(--secondary-color);
 }
 
+.data-input {
+    color: whitesmoke;
+    background-color: var(--terciary-color);
+}
+
 button {
     border-radius: 6px;
     color: white;
@@ -73,11 +78,6 @@ button:hover {
     text-align: center;
     margin: 30px auto;
     width: 100%;
-}
-
-.data-input {
-    color: whitesmoke;
-    background-color: #0F4C75;
 }
 
 th, td {
