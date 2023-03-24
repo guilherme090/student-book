@@ -3,7 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
 
 :root {
-    --font-title: 'Bebas Neue';
+    /* --font-title: 'Bebas Neue'; */
+    --font-title: 'Arizonia';
     --font-item-title: 'Arizonia';
     --font-body: 'Roboto Slab';
     --bg-color: #1B262C;
@@ -11,12 +12,16 @@
     --secondary-color: #00B7C2;
     --terciary-color: #0F4C75;
     --alert-color: #BB0000;
-    --table-color: rgba(6, 5, 48, 0.276);
+    --table-color: rgba(6, 5, 48, 0.376);
 }
 
 body {
     color: var(--primary-color);
-    background-color: var(--bg-color);
+    /* background-color: var(--bg-color); */
+    background-image: url('pictures/library.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
     font-family: var(--font-body);
     font-size: medium;
 }
@@ -25,6 +30,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: x-large;
 }
 
 #main-title #page-icon {
@@ -86,9 +92,10 @@ button:hover {
     border-collapse: collapse;
     text-align: center;
     margin: 30px auto;
+    padding: 20px;
     width: 100%;
     background: var(--table-color);
-    /* backdrop-filter: blur(20px); */
+    backdrop-filter: blur(20px);
 }
 
 /* th {
@@ -107,6 +114,10 @@ th, td {
 }
 
 .data-table > tbody {
+    color: whitesmoke;
+}
+
+.table-highlight {
     color: var(--secondary-color);
 }
 

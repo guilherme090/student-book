@@ -23,6 +23,7 @@ function generateStudentsContractTable(data) {
   for(let i = 0; i<data.studentsContracts.length; i++) {
     let row = $("<tr>");
     let columnStudent = $("<td>").text(data.studentsContracts[i].name);
+    columnStudent.addClass("table-highlight");
     let columnCompany = $("<td>").text(data.studentsContracts[i].company);
     
     let startDate = null;
