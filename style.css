@@ -9,6 +9,7 @@
     --font-body: 'Roboto Slab';
     --bg-color: #1B262C;
     --primary-color: #FDCB9E;
+    --primary-color-glow: #fdfdb2;
     --secondary-color: #00B7C2;
     --terciary-color: #0F4C75;
     --alert-color: #BB0000;
@@ -31,6 +32,17 @@ body {
     align-items: center;
     justify-content: center;
     font-size: x-large;
+    animation: glow-text 1s infinite alternate;
+}
+
+@keyframes glow-text {
+    from {
+        color: var(--primary-color)
+    }
+
+    to {
+        color: var(--primary-color-glow)
+    }
 }
 
 #main-title #page-icon {
