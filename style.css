@@ -75,6 +75,11 @@ button:hover {
     width: 100%;
 }
 
+.data-input {
+    color: whitesmoke;
+    background-color: #0F4C75;
+}
+
 th, td {
     padding: 4px 6px;
     border: 1px solid white;
