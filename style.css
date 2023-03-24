@@ -61,6 +61,10 @@ button:hover {
     background-color: var(--secondary-color);
 }
 
+.student-info, .contract-info, .class-info {
+    display: grid;
+}
+
 .form-input {
     /* white-space: nowrap; */
     display:inline-block;
@@ -123,6 +127,11 @@ th, td {
 
 .number-input {
     width: 50px;
+}
+
+.notes-div {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #notes-input {
