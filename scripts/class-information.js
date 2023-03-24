@@ -1,7 +1,7 @@
 $("#class-save-btn").on("click", function() {
     addHourglassToPage();
     let classTime = registerNewClass();
-    // addToContractHours(classTime);
+    addToContractHours(classTime);
     destroyHourglassFromPage();
 });
 
