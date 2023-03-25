@@ -57,9 +57,10 @@ body {
     color: var(--secondary-color);
 }
 
-.data-input {
+.data-input, .outside-webpage {
     color: whitesmoke;
     background-color: var(--terciary-color);
+    border-radius: 6px;
 }
 
 button {
