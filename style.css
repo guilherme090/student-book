@@ -135,6 +135,7 @@ th, td {
 
 .table-highlight {
     color: var(--secondary-color);
+    font-weight: bold;
 }
 
 .number-input {
@@ -156,4 +157,20 @@ th, td {
 .hourglass {
     margin-left: auto;
     margin-right: auto;
+}
+
+.outside-webpage {
+    height: 300px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    resize: both;
+    overflow: auto;
+    transform: scaleY(0.8);
+}
+
+.class-info {
+    display: grid;
+    vertical-align: middle;
+    align-items: end;
 }
