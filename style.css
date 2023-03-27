@@ -32,16 +32,20 @@ body {
     align-items: center;
     justify-content: center;
     font-size: x-large;
+}
+
+#main-title-text {
     animation: glow-text 1s infinite alternate;
 }
 
 @keyframes glow-text {
     from {
-        color: var(--primary-color)
+        color: var(--primary-color);
     }
 
     to {
-        color: var(--primary-color-glow)
+        color: var(--primary-color-glow);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
     }
 }
 
