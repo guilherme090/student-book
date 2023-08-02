@@ -1,6 +1,9 @@
+const CLASS_LIMIT = 10;
 function getLastClasses() {
   addHourglassToTable("last-classes-table");
-  fetch(`${API_ROOT}/classes`)
+
+  let classOffset = (parseInt($("#number-class-page").val()) - 1) * CLASS_LIMIT;
+  fetch(`${API_ROOT}/classes/${CLASS_LIMIT}/${classOffset}`)
       .then(response => response.json())
       .then(data => {
         destroyHourglass("last-classes-table");
