@@ -1,4 +1,9 @@
 const CLASS_LIMIT = 10;
+
+function eraseClassesTable() {
+  $("#last-classes-table > tbody").children().remove();
+}
+
 function getLastClasses() {
   addHourglassToTable("last-classes-table");
 
@@ -33,4 +38,25 @@ function generateLastClassesTable(data) {
   }    
 }
 
+$("#previous-class-page").on("click", getPreviousPage);
+$("#next-class-page").on("click", getNextPage);
+
+function getPreviousPage() {
+  if($("#number-class-page").val() > 1) {
+    $("#number-class-page").val(
+        parseInt($("#number-class-page").val()) - 1
+    );
+    eraseClassesTable();  
+    getLastClasses();
+  }
+}
+
+function getNextPage() {
+  $("#number-class-page").val(
+      parseInt($("#number-class-page").val()) + 1
+  );
+  eraseClassesTable(); 
   getLastClasses();
+}
+
+getLastClasses();
