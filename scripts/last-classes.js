@@ -14,7 +14,12 @@ function getLastClasses() {
         destroyHourglass("last-classes-table");
         generateLastClassesTable(data);
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.log("Could not load students contracts.")
+        destroyHourglass("last-classes-table");
+        addErrorHourglassToTable("last-classes-table");
+        console.error(error)
+      });
 }
 
 function generateLastClassesTable(data) {

@@ -16,7 +16,12 @@ function getStudentsContracts() {
       generateStudentsContractTable(data);
       showOnlyStudentTables();
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.log("Could not load students contracts.")
+      destroyHourglass("student-contract-table");
+      addErrorHourglassToTable("student-contract-table");
+      console.error(error)
+    });
 }
 
 function generateStudentsContractTable(data) {

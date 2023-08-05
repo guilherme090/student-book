@@ -14,6 +14,22 @@ function addHourglassToTable(tableId) {
     $(`#${tableId}`).find("tbody").append(hourglassRow);
 }
 
+function addErrorHourglassToTable(tableId) {
+    let hourglassRow = $("<tr>").addClass("hourglass");
+    let hourglassTd = $("<td>").attr("colspan", 99);
+    let hourglassImg = $("<img>")
+                        .addClass("hourglass")
+                        .attr("src", "pictures/Brokenhourglass.png")
+                        .attr("width", "80px")
+                        .attr("height", "80px")
+                        .attr("alt", "loading...");
+
+    hourglassTd.append(hourglassImg);
+    hourglassRow.append(hourglassTd);
+
+    $(`#${tableId}`).find("tbody").append(hourglassRow);
+}
+
 function destroyHourglass(tableId) {
     $(`#${tableId}`).find(".hourglass").remove();
 }
