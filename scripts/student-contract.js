@@ -185,6 +185,7 @@ function showSpecificContract(id) {
         selectedContract.hoursBought = data.specificContract.hours_bought;
         selectedContract.hoursUsed = data.specificContract.hours_used;
         selectedContract.isActive = data.specificContract.is_active;
+        selectedContract.observations = data.specificContract.observations;
         
         fillSpecificContractForm(data);
       })
@@ -198,6 +199,7 @@ function fillSpecificContractForm(data) {
   $("#termination-date-input").val(selectedContract.terminationDate);
   $("#hours-bought-input").val(selectedContract.hoursBought);
   $("#hours-used-input").val(selectedContract.hoursUsed);
+  $("#observations-input").val(selectedContract.observations);
   if(selectedContract.isActive){
     $("#is-active-input").prop("checked", true);
   } else {
@@ -311,7 +313,6 @@ function editStudent() {
 }
 
 function editContract() {
-
   // update selected contract to current form values
   selectedContract.student = $("#student-input").val();
   selectedContract.startDate = $("#start-date-input").val();
@@ -321,6 +322,7 @@ function editContract() {
   }
   selectedContract.hoursBought = $("#hours-bought-input").val();
   selectedContract.hoursUsed = $("#hours-used-input").val();
+  selectedContract.observations = $("#observations-input").val();
 
   if($("#is-active-input").prop("checked")){
     selectedContract.isActive = '1';

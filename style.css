@@ -88,6 +88,11 @@ button:hover {
     margin: 4px auto;
 }
 
+.notes-input {
+   display: block;
+
+}
+
 .form-title {
     font-family: var(--font-item-title);
     font-size: xx-large;
