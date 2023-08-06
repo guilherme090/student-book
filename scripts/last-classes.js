@@ -7,7 +7,7 @@ function eraseClassesTable() {
 function getLastClasses() {
   addHourglassToTable("last-classes-table");
 
-  let classOffset = (parseInt($("#number-class-page").val()) - 1) * CLASS_LIMIT;
+  let classOffset = (parseInt($("#number-class-page").text()) - 1) * CLASS_LIMIT;
   fetch(`${API_ROOT}/classes/${CLASS_LIMIT}/${classOffset}`)
       .then(response => response.json())
       .then(data => {
@@ -47,9 +47,9 @@ $("#previous-class-page").on("click", getPreviousPage);
 $("#next-class-page").on("click", getNextPage);
 
 function getPreviousPage() {
-  if($("#number-class-page").val() > 1) {
-    $("#number-class-page").val(
-        parseInt($("#number-class-page").val()) - 1
+  if($("#number-class-page").text() > 1) {
+    $("#number-class-page").text(
+        parseInt($("#number-class-page").text()) - 1
     );
     eraseClassesTable();  
     getLastClasses();
@@ -57,8 +57,8 @@ function getPreviousPage() {
 }
 
 function getNextPage() {
-  $("#number-class-page").val(
-      parseInt($("#number-class-page").val()) + 1
+  $("#number-class-page").text(
+      parseInt($("#number-class-page").text()) + 1
   );
   eraseClassesTable(); 
   getLastClasses();
