@@ -167,6 +167,7 @@ function showSpecificContract(id) {
       .then(data => {
         selectedContract.id = data.specificContract.id;
         selectedContract.student = data.specificContract.student;
+        selectedContract.studentName = data.specificContract.name;
         if(data.specificContract.start_date != null){
           selectedContract.startDate = data.specificContract.start_date.substring(0,10);
         } else {
@@ -193,7 +194,7 @@ function showSpecificContract(id) {
 }
 
 function fillSpecificContractForm(data) {
-  $("#student-input").val(selectedContract.student);
+  $("#student-input").val(selectedContract.studentName);
   $("#start-date-input").val(selectedContract.startDate);
   $("#end-date-input").val(selectedContract.endDate);
   $("#termination-date-input").val(selectedContract.terminationDate);
@@ -314,7 +315,7 @@ function editStudent() {
 
 function editContract() {
   // update selected contract to current form values
-  selectedContract.student = $("#student-input").val();
+  // selectedContract.student = $("#student-input").val();
   selectedContract.startDate = $("#start-date-input").val();
   selectedContract.endDate = $("#end-date-input").val();
   if($("#termination-date-input").val() != ''){
