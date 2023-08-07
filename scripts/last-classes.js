@@ -1,4 +1,4 @@
-const CLASS_LIMIT = 10;
+const CLASS_LIMIT = 5;
 
 function eraseClassesTable() {
   $("#last-classes-table > tbody").children().remove();
